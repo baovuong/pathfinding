@@ -47,7 +47,7 @@
         <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
         <antcall target="build"/>
     </target>
-    <target name="build-jar">
+    <target depends="build" name="build-jar">
     	<jar destfile="target/pathfinding.jar"
     		basedir="bin">
 	    	<manifest>

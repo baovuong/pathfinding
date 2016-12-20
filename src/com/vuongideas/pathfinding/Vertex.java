@@ -1,15 +1,15 @@
 package com.vuongideas.pathfinding;
 
-public class Node<T> {
+public class Vertex<T> {
 	private boolean start;
 	private boolean goal;
 	private T value;
 	
-	public Node() {
+	public Vertex() {
 		this(null);
 	}
 	
-	public Node(T value) {
+	public Vertex(T value) {
 		this.value = value;
 		start = false;
 		goal = false;
