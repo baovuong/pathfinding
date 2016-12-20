@@ -1,7 +1,7 @@
 package com.vuongideas.pathfinding;
 
-public class Edge {
+public class Edge<T> {
 	private int weight;
-	private GraphNode node;
+	private Node<T> node;
 	
 }
