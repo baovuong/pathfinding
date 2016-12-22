@@ -52,7 +52,12 @@ public class AdjacencyListFiniteGraph<T> extends FiniteGraph<T> {
 
 	@Override
 	public void removeVertex(Vertex<T> v) {
-		// TODO Auto-generated method stub
+		int i = vertices.indexOf(v);
+		vertices.remove(v);
+		edges.remove(i);
+		
+		// remove edges
+		// TODO complete this
 		
 	}
 
