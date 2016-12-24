@@ -47,8 +47,10 @@ public class AdjacencyListFiniteGraph<T> extends FiniteGraph<T> {
 	}
 
 	@Override
-	public void addVertex(T value) {
-		addVertex(new Vertex<T>(value));
+	public Vertex<T> addVertex(T value) {
+		Vertex<T> newVertex = new Vertex<T>(value);
+		addVertex(newVertex);
+		return newVertex;
 		
 	}
 
