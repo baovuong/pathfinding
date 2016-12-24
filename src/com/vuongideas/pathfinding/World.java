@@ -26,6 +26,21 @@ public class World {
 		this.beginning = beginning;
 		this.destination = destination;
 	}
+	
+	public Graph<Point> constructGraph() {
+		FiniteGraph<Point> graph = new AdjacencyListFiniteGraph<Point>((maxX)*(maxY)-obstacles.size());
+		for (int x=1; x<=maxX; x++) {
+			for (int y=1; y<maxY; y++) {
+				Point p = new Point(x, y);
+				if (!obstacles.contains(p)) {
+					graph.addVertex(p);	
+				}
+			}
+		}
+		return graph;
+	}
+	
+	// getters and setters
 
 	public int getMaxX() {
 		return maxX;

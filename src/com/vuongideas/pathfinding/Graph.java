@@ -3,6 +3,10 @@ package com.vuongideas.pathfinding;
 import java.util.List;
 
 public interface Graph<T> {
+	public Vertex<T> getStart();
+	public Vertex<T> getGoal();
+	public void setStart(Vertex<T> start);
+	public void setGoal(Vertex<T> goal);
 	public boolean adjacent(Vertex<T> v1, Vertex<T> v2);
 	public List<Vertex<T>> neighbors(Vertex<T> v);
 	public void addVertex(Vertex<T> v);

@@ -5,7 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class AdjacencyListFiniteGraph<T> extends FiniteGraph<T> {
-
+	private int startIndex;
+	private int goalIndex;
 	private List<Vertex<T>> vertices;
 	private List<List<Integer>> edges;
 	
@@ -40,25 +41,35 @@ public class AdjacencyListFiniteGraph<T> extends FiniteGraph<T> {
 
 	@Override
 	public void addVertex(Vertex<T> v) {
-		// TODO Auto-generated method stub
-		
+		if (!vertices.contains(v)) {
+			vertices.add(v);
+		}
 	}
 
 	@Override
 	public void addVertex(T value) {
-		// TODO Auto-generated method stub
+		addVertex(new Vertex<T>(value));
 		
 	}
 
 	@Override
 	public void removeVertex(Vertex<T> v) {
 		int i = vertices.indexOf(v);
-		vertices.remove(v);
-		edges.remove(i);
-		
-		// remove edges
-		// TODO complete this
-		
+		if (i != -1) {
+			vertices.remove(v);
+			edges.remove(i);
+			
+
+			for (List<Integer> e : edges) {
+				// remove edges connected to v
+				e.remove(new Integer(i));
+				for (int j=0; j < e.size(); j++) {
+					if (e.get(j) >= i) {
+						e.set(j, e.get(j)-1);
+					}
+				}
+			}		
+		}	
 	}
 
 	@Override
@@ -84,7 +95,38 @@ public class AdjacencyListFiniteGraph<T> extends FiniteGraph<T> {
 
 	@Override
 	public void setVertex(int i, Vertex<T> v) {
-		// TODO Auto-generated method stub
+		vertices.set(i, v);
+	}
+
+	@Override
+	public Vertex<T> getStart() {
+		return vertices.get(startIndex);
+	}
+
+	@Override
+	public Vertex<T> getGoal() {
+		return vertices.get(goalIndex);
+	}
+
+	@Override
+	public void setStart(Vertex<T> start) {
+		int i = vertices.indexOf(start);
+		if (i == -1) {
+			addVertex(start);
+			i = vertices.indexOf(start);
+		}
+		startIndex = i;
 		
+	}
+
+	@Override
+	public void setGoal(Vertex<T> goal) {
+		int i = vertices.indexOf(goal);
+		if (i == -1) {
+			addVertex(goal);
+			i = vertices.indexOf(goal);
+		}
+		startIndex = i;
+				
 	}
 }
