@@ -14,6 +14,9 @@ public class AdjacencyListFiniteGraph<T> extends FiniteGraph<T> {
 		super(size);
 		vertices = new ArrayList<Vertex<T>>(size);
 		edges = new ArrayList<List<Integer>>(size);
+		for (int i=0; i<size; i++) {
+			edges.add(new LinkedList<Integer>());
+		}
 	}
 	
 	@Override
@@ -79,9 +82,6 @@ public class AdjacencyListFiniteGraph<T> extends FiniteGraph<T> {
 		int i1 = vertices.indexOf(v1);
 		int i2 = vertices.indexOf(v2);
 		if (i1 != -1 && i2 != -1) {
-			if (edges.get(i1) == null) {
-				edges.set(i1, new LinkedList<Integer>());
-			}
 			edges.get(i1).add(i2);
 		}
 	}
