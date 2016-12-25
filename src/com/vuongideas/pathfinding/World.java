@@ -48,9 +48,9 @@ public class World {
 				Point p = new Point(x, y);
 				if (!obstacles.contains(p)) {
 					Vertex<Point> v = graph.addVertex(p);
-					if (p == beginning) {
+					if (p.equals(beginning)) {
 						graph.setStart(v);
-					} else if (p == destination) {
+					} else if (p.equals(destination)) {
 						graph.setGoal(v);
 					}
 					vertices.put(p, v);

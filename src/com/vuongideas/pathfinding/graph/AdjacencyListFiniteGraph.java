@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class AdjacencyListFiniteGraph<T> extends FiniteGraph<T> {
+public class AdjacencyListFiniteGraph<T> extends SolvableFiniteGraph<T> {
 	private int startIndex;
 	private int goalIndex;
 	private List<Vertex<T>> vertices;
@@ -128,7 +128,7 @@ public class AdjacencyListFiniteGraph<T> extends FiniteGraph<T> {
 			addVertex(goal);
 			i = vertices.indexOf(goal);
 		}
-		startIndex = i;
+		goalIndex = i;
 				
 	}
 }

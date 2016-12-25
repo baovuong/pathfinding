@@ -1,22 +1,36 @@
 package com.vuongideas.pathfinding.algorithm;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Queue;
-import java.util.Stack;
 
 import com.vuongideas.pathfinding.graph.Graph;
 import com.vuongideas.pathfinding.graph.Vertex;
 
-public class BreadthFirstSearchAlgorithm<T> implements SearchAlgorithm<T> {
-
+public class GreedySearchAlgorithm<T> implements SearchAlgorithm<T> {
+	private Heuristic<T> heuristic;
+	
+	public GreedySearchAlgorithm(Heuristic<T> heuristic) {
+		this.heuristic = heuristic;
+	}
+	
 	@Override
-	public List<Vertex<T>> search(Graph<T> graph) {
+	public List<Vertex<T>> search(final Graph<T> graph) {
 		List<Vertex<T>> path = new ArrayList<Vertex<T>>();
-		Queue<Vertex<T>> fringe = new LinkedList<Vertex<T>>();
+		Queue<Vertex<T>> fringe = new PriorityQueue<Vertex<T>>(11, new Comparator<Vertex<T>>() {
+
+			@Override
+			public int compare(Vertex<T> o1, Vertex<T> o2) {
+				// TODO Auto-generated method stub
+				return (int) (heuristic.perform(graph, o1) - heuristic.perform(graph, o2));
+			}
+			
+		});
 		Vertex<T> start = graph.getStart();
 		Vertex<T> goal = graph.getGoal();
 		Vertex<T> current;
