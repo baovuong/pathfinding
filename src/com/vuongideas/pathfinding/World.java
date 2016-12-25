@@ -8,6 +8,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
+import com.vuongideas.pathfinding.graph.AdjacencyListFiniteGraph;
+import com.vuongideas.pathfinding.graph.FiniteGraph;
+import com.vuongideas.pathfinding.graph.Graph;
+import com.vuongideas.pathfinding.graph.Vertex;
+
 public class World {
 	private int maxX;
 	private int maxY;
@@ -36,6 +41,8 @@ public class World {
 		
 		// creating vertices
 		Map<Point, Vertex<Point>> vertices = new HashMap<Point, Vertex<Point>>();
+		
+		// NOTE complexity: O(n^2)
 		for (int x=1; x<=maxX; x++) {
 			for (int y=1; y<maxY; y++) {
 				Point p = new Point(x, y);
@@ -52,6 +59,8 @@ public class World {
 		}
 		
 		// creating edges
+		
+		// NOTE complexity: O(n)
 		for (Vertex<Point> v : vertices.values()) {
 			
 			// look for neighbors

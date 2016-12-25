@@ -1,4 +1,4 @@
-package com.vuongideas.pathfinding;
+package com.vuongideas.pathfinding.graph;
 
 public class Edge<T> {
 	private double weight;
