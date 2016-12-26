@@ -1,44 +1,29 @@
 package com.vuongideas.pathfinding.algorithm;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.Stack;
 
 import com.vuongideas.pathfinding.graph.Graph;
 import com.vuongideas.pathfinding.graph.Vertex;
 
-public class GreedySearchAlgorithm<T> implements SearchAlgorithm<T> {
-	private Heuristic<T> heuristic;
-	
-	public GreedySearchAlgorithm(Heuristic<T> heuristic) {
-		this.heuristic = heuristic;
-	}
-	
-	@Override
-	public List<Vertex<T>> search(final Graph<T> graph) {
-		List<Vertex<T>> path = new ArrayList<Vertex<T>>();
-		Queue<Vertex<T>> fringe = new PriorityQueue<Vertex<T>>(11, new Comparator<Vertex<T>>() {
+public class DepthFirstSearchAlgorithm<T> implements SearchAlgorithm<T> {
 
-			@Override
-			public int compare(Vertex<T> o1, Vertex<T> o2) {
-				return (int) (heuristic.perform(graph, o1) - heuristic.perform(graph, o2));
-			}
-			
-		});
+	@Override
+	public List<Vertex<T>> search(Graph<T> graph) {
+		List<Vertex<T>> path = new ArrayList<Vertex<T>>();
+		Stack<Vertex<T>> frontier = new Stack<Vertex<T>>();
 		Vertex<T> start = graph.getStart();
 		Vertex<T> goal = graph.getGoal();
 		Vertex<T> current;
 		List<Vertex<T>> discovered = new ArrayList<Vertex<T>>();
 		Map<Vertex<T>, Vertex<T>> parent = new HashMap<Vertex<T>, Vertex<T>>();
-		fringe.add(start);
+		frontier.push(start);
 		
-		while (!fringe.isEmpty()) {
-			current = fringe.remove();
+		while (!frontier.isEmpty()) {
+			current = frontier.pop();
 			if (current == goal) {
 				do {
 					path.add(0, current);
@@ -50,8 +35,8 @@ public class GreedySearchAlgorithm<T> implements SearchAlgorithm<T> {
 			if (!discovered.contains(current)) {
 				discovered.add(current);
 				for (Vertex<T> neighbor : graph.neighbors(current)) {
-					if (!(fringe.contains(neighbor) || discovered.contains(neighbor))) {
-						fringe.add(neighbor);
+					if (!(frontier.contains(neighbor) || discovered.contains(neighbor))) {
+						frontier.push(neighbor);
 						parent.put(neighbor, current);
 					}
 					
@@ -60,5 +45,4 @@ public class GreedySearchAlgorithm<T> implements SearchAlgorithm<T> {
 		}
 		return path;
 	}
-
 }
